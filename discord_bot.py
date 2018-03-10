@@ -7,9 +7,6 @@ import time
 
 
 '''
-Auglan bot
-
-
 ping - @user Pong!
 hello - @user Hello!
 $say [text] = [text]
@@ -21,7 +18,7 @@ am_i_admin - Yes/No
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = "$", description = "Description:")
-#chat_filter = ["PINEAPPLE", "APPLE", "BANANA"]
+
 
 @client.event
 async def on_ready():
@@ -55,4 +52,4 @@ async def on_message(message):
             
 
             
-client.run('NDEzMTU5NzM1MjkwODg4MTky.DWUwog.fsbtPCginUxB1c0X7PCpq6R4Kj0')
+client.run('token')
