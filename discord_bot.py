@@ -39,7 +39,7 @@ async def on_message(message):
         args = message.content.split(" ")
         await message.channel.send("%s" % (" ".join(args[1:])))
     if message.content.lower() == "am_i_admin":
-        if "414684399037317130" in [role.id for role in message.author.roles]:
+        if "admin_ID" in [role.id for role in message.author.roles]:
             print("got it")
             await message.channel.send("Yes")
         else:
