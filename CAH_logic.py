@@ -1,21 +1,48 @@
 '''CAH game logic'''
 
-CAH_PLAYERS = {}
 
-CAH_STARTED = False
-CAH_ENDED = False
+'''Game class storing info'''
+class CAH_game:
+    def __init__(self):
+        self.CAH_PLAYERS = {}
+        self.CAH_STARTED = False
+        self.CAH_ENDED = False
 
-CAH_NSFW = False
-CAH_B_DECK = set()
-CAH_B_DECK_NSFW = set()
-CAH_W_DECK = set()
-CAH_W_DECK_NSFW = set()
+        self.CAH_NSFW = False
+        self.CAH_B_DECK = set()
+        self.CAH_B_DECK_NSFW = set()
+        self.CAH_W_DECK = set()
+        self.CAH_W_DECK_NSFW = set()
 
-CAH_TSAR = None
-CAH_NUM = 5
-CAH_TURNED_CARDS = {}
-
-
+        self.CAH_TSAR = None
+        self.CAH_NUM = 5
+        self.CAH_TURNED_CARDS = {}
+        self.CAH_SCORE = 7
+        
+    '''Add a new player'''
+        
+    def add_player(self, name, id):
+        self.CAH_PLAYERS[name] = CAH_Player(name, self._random_cards(self.CAH_NUM), id)
+        
+    '''Set up the game'''
+        
+    def set_up(self):
+        self.CAH_STARTED = True
+        if self.CAH_NSFW == True:
+            self.CAH_W_DECK = self.CAH_W_DECK + self.CAH_W_DECK_NSFW
+            self.CAH_B_DECK = self.CAH_B_DECK + self.CAH_B_DECK_NSFW
+        for player in self.CAH_PLAYERS:
+            self.CAH_PLAYERS[player].hand = self.random_cards(self.CAH_NUM)
+            
+    def _random_cards(self, num) -> list:
+        hand = []
+        card_count = 1
+        for i in range(num):
+            card = self.CAH_W_DECK.pop()
+            hand.append((card_count, card),)  
+            card_count += 1 
+        return hand
+    
 '''Player class storing info'''
 class CAH_Player:
     def __init__(self,name, hand: list, id):
@@ -25,25 +52,9 @@ class CAH_Player:
         self.turn = False
         self.id = id
         
-    '''---------
-    - dm the cards? (UI problem)
-    - once all cards are turned in, reveal all without the names and let the tsar choose by number
-    (keep the turned in cards with a dictionary? name as key and card as value)
-    -----------'''
-            
-def add_player(name, id):
-    global CAH
-    CAH_PLAYERS[name] = CAH_Player(name, _random_cards(CAH_NUM), id)
+
     
     
     
-'''hand is a list of 2-tuples with first value being number and second the text'''
-def _random_cards(num) -> list:
-    global CAH_W_DECK
-    hand = []
-    card_count = 1
-    for i in range(num):
-        card = CAH_W_DECK.pop()
-        hand.append((card_count, card),)  
-        card_count += 1 
-    return hand
+
+
