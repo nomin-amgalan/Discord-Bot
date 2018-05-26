@@ -328,6 +328,3 @@ async def cah_nsfw(ctx, *args):
                     
 
 bot.run(token)
-
-            
-client.run('token')
